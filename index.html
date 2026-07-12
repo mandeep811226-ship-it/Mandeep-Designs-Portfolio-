@@ -275,6 +275,85 @@
     margin:14px;
   }
 
+  /* ---------- MEET THE DESIGNER ---------- */
+  .designer-section{ overflow:hidden; }
+  .designer-bg{ position:absolute; inset:0; z-index:0; pointer-events:none; }
+  .designer-orb{ position:absolute; border-radius:50%; filter:blur(90px); }
+  .designer-orb.orb1{
+    width:560px; height:560px; top:-14%; left:-10%;
+    background:radial-gradient(circle, rgba(185,151,91,0.32), transparent 70%);
+  }
+  .designer-orb.orb2{
+    width:440px; height:440px; bottom:-16%; right:-8%;
+    background:radial-gradient(circle, rgba(92,26,36,0.30), transparent 70%);
+  }
+  .designer-noise{
+    position:absolute; inset:0; opacity:0.045; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .designer-wrap{
+    position:relative; z-index:1; display:grid;
+    grid-template-columns:0.85fr 1.15fr; gap:100px; align-items:center;
+  }
+  @media (max-width:900px){ .designer-wrap{ grid-template-columns:1fr; gap:56px; } }
+
+  .designer-portrait-col{ display:flex; justify-content:center; }
+  .designer-portrait-stage{
+    position:relative; width:100%; max-width:360px; perspective:1200px;
+  }
+  .designer-glow{
+    position:absolute; inset:-18%; z-index:0; border-radius:50%; pointer-events:none;
+    background:radial-gradient(circle at 50% 40%, rgba(224,196,138,0.38), transparent 65%);
+    filter:blur(44px);
+  }
+  .designer-particles{ position:absolute; inset:-6%; z-index:2; pointer-events:none; }
+  .designer-particle{
+    position:absolute; border-radius:50%;
+    background:radial-gradient(circle, var(--brass-light), rgba(224,196,138,0));
+    box-shadow:0 0 6px 1px rgba(224,196,138,0.5);
+  }
+  .designer-portrait-frame{
+    position:relative; z-index:1; aspect-ratio:4/5; border-radius:3px; overflow:hidden;
+    transform-style:preserve-3d; will-change:transform;
+    box-shadow:0 50px 100px -30px rgba(0,0,0,0.6), 0 0 0 1px rgba(185,151,91,0.25);
+  }
+  .designer-portrait-frame img{
+    width:100%; height:100%; object-fit:cover; object-position:top center;
+    transform:scale(1.04); filter:saturate(1.05) contrast(1.03);
+  }
+  .designer-rim-light{
+    position:absolute; inset:0; z-index:2; pointer-events:none;
+    background:linear-gradient(120deg, transparent 40%, rgba(224,196,138,0.22) 50%, transparent 60%);
+    mix-blend-mode:screen; opacity:0.75;
+  }
+  .designer-vignette-frame{
+    position:absolute; inset:0; z-index:2; pointer-events:none;
+    box-shadow:inset 0 0 90px rgba(12,11,9,0.55);
+    border:1px solid rgba(224,196,138,0.28);
+  }
+  .designer-caption{
+    margin-top:22px; text-align:center; font-size:11px; letter-spacing:0.16em;
+    text-transform:uppercase; color:var(--bone-faint);
+  }
+
+  .designer-copy-col{ max-width:520px; }
+  .designer-headline{ font-size:clamp(30px,3.6vw,46px); color:var(--bone); margin-bottom:26px; }
+  .designer-headline .word{ display:inline-block; will-change:transform, opacity; }
+  .designer-paragraph p{
+    font-size:15.5px; line-height:1.9; color:var(--bone-faint); font-weight:300; margin-bottom:20px;
+    will-change:transform, opacity;
+  }
+  .designer-cta{ margin-top:12px; }
+  .designer-cta .cta-arrow{ display:inline-block; transition:transform .35s var(--ease); }
+  .designer-cta:hover .cta-arrow{ transform:translateX(6px); }
+
+  @media (max-width:900px){
+    .designer-portrait-stage{ max-width:280px; margin:0 auto; }
+    .designer-copy-col{ max-width:none; text-align:center; }
+    .designer-copy-col .eyebrow{ justify-content:center; }
+  }
+
   /* section background photography */
   .section-photo{
     position:absolute; inset:0; z-index:0; overflow:hidden; pointer-events:none;
@@ -519,6 +598,38 @@
   </div>
 </section>
 
+<!-- ================= MEET THE DESIGNER ================= -->
+<section class="section-dark designer-section" id="designer">
+  <div class="designer-bg">
+    <div class="designer-orb orb1"></div>
+    <div class="designer-orb orb2"></div>
+    <div class="designer-noise"></div>
+  </div>
+  <div class="container designer-wrap">
+    <div class="designer-portrait-col">
+      <div class="designer-portrait-stage" id="portraitStage">
+        <div class="designer-glow" id="designerGlow"></div>
+        <div class="designer-particles" id="designerParticles"></div>
+        <div class="designer-portrait-frame" id="portraitFrame">
+          <img src="assets/mandeep-portrait.jpg" alt="Portrait of Mandeep Singh, founder of Mandeep Designs" id="portraitImg">
+          <div class="designer-rim-light"></div>
+          <div class="designer-vignette-frame"></div>
+        </div>
+        <div class="designer-caption" id="designerCaption">Mandeep Singh — Founder &amp; Designer</div>
+      </div>
+    </div>
+    <div class="designer-copy-col">
+      <div class="eyebrow reveal"><svg class="flourish" viewBox="0 0 34 8"><path d="M0 4 C 10 -2, 24 10, 34 4"/></svg>Behind Mandeep Designs</div>
+      <h2 class="designer-headline" id="designerHeadline">Meet the Designer Behind the Experience</h2>
+      <div class="designer-paragraph" id="designerParagraph">
+        <p>I don't simply build websites — I build digital experiences that make businesses unforgettable. Every project starts the same way: by learning what makes this brand different, then designing outward from that truth instead of a template.</p>
+        <p>Craftsmanship shows in what a visitor never consciously notices — the rhythm of a scroll, the weight of a typeface, the half-second a hover takes to respond. That attention, held over every detail, is what turns a first visit into long-term trust.</p>
+      </div>
+      <a href="#contact" class="btn btn-primary magnetic designer-cta" id="designerCTA">Let's Build Something Exceptional <span class="cta-arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
 <!-- ================= ABOUT ================= -->
 <section class="section-dark" id="about">
   <div class="container">
@@ -663,6 +774,8 @@
   </svg>
 </a>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
   // Header scroll state
   const header = document.getElementById('siteHeader');
@@ -770,6 +883,179 @@
     links.style.display = open ? 'none' : 'flex';
     links.style.cssText += 'position:fixed; top:0; right:0; left:0; background:#0c0b09; flex-direction:column; padding:100px 40px 40px; gap:28px; height:100vh;';
   });
+
+  // ================= MEET THE DESIGNER =================
+  (function(){
+    const section = document.getElementById('designer');
+    if(!section) return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const stage = document.getElementById('portraitStage');
+    const frame = document.getElementById('portraitFrame');
+    const glow = document.getElementById('designerGlow');
+    const rim = frame.querySelector('.designer-rim-light');
+    const particlesWrap = document.getElementById('designerParticles');
+    const caption = document.getElementById('designerCaption');
+    const headline = document.getElementById('designerHeadline');
+    const paragraphs = document.querySelectorAll('#designerParagraph p');
+    const cta = document.getElementById('designerCTA');
+    const gsapAvailable = typeof gsap !== 'undefined';
+
+    // split headline into animatable words
+    headline.innerHTML = headline.textContent.trim().split(' ')
+      .map(w => `<span class="word">${w}</span>`).join(' ');
+
+    // build floating gold particles
+    const PARTICLE_COUNT = 12;
+    const particles = [];
+    for(let i = 0; i < PARTICLE_COUNT; i++){
+      const p = document.createElement('div');
+      p.className = 'designer-particle';
+      const size = 2 + Math.random() * 3;
+      p.style.width = size + 'px';
+      p.style.height = size + 'px';
+      p.style.left = (Math.random() * 100) + '%';
+      p.style.top = (Math.random() * 100) + '%';
+      particlesWrap.appendChild(p);
+      particles.push({ el: p, depth: 0.3 + Math.random() * 0.5, driftDur: 6 + Math.random() * 6, delay: Math.random() * 2 });
+    }
+    const particleEls = particles.map(p => p.el);
+
+    // only run interactive logic while section is in view (perf + "pause offscreen")
+    let sectionVisible = false;
+    const visibilityObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => { sectionVisible = e.isIntersecting; });
+    }, { threshold: 0.1 });
+    visibilityObserver.observe(section);
+
+    // eased interpolation for cursor-driven movement
+    let quickRotY, quickRotX, quickGlowX, quickGlowY, quickRimX;
+    if(gsapAvailable){
+      quickRotY = gsap.quickTo(frame, 'rotationY', { duration: 0.9, ease: 'power3.out' });
+      quickRotX = gsap.quickTo(frame, 'rotationX', { duration: 0.9, ease: 'power3.out' });
+      quickGlowX = gsap.quickTo(glow, 'xPercent', { duration: 1.2, ease: 'power3.out' });
+      quickGlowY = gsap.quickTo(glow, 'yPercent', { duration: 1.2, ease: 'power3.out' });
+      quickRimX = gsap.quickTo(rim, 'xPercent', { duration: 1, ease: 'power3.out' });
+    }
+
+    const MAX_TILT = 7; // degrees — stays within the 6-8deg premium range
+    function applyTilt(nx, ny){
+      if(reduceMotion) return;
+      if(gsapAvailable){
+        quickRotY(nx * MAX_TILT);
+        quickRotX(-ny * MAX_TILT);
+        quickGlowX(nx * 18);
+        quickGlowY(ny * 18);
+        quickRimX(nx * 40);
+      } else {
+        frame.style.transform = `rotateY(${nx * MAX_TILT}deg) rotateX(${-ny * MAX_TILT}deg)`;
+      }
+      particles.forEach(pt => {
+        const shift = pt.depth * 14;
+        pt.el.style.transform = `translate(${nx * shift}px, ${ny * shift}px)`;
+      });
+    }
+
+    function normalizedFromPoint(clientX, clientY){
+      const r = stage.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+      const nx = Math.max(-1, Math.min(1, (clientX - cx) / (r.width * 1.4)));
+      const ny = Math.max(-1, Math.min(1, (clientY - cy) / (r.height * 1.4)));
+      return [nx, ny];
+    }
+
+    // desktop cursor
+    window.addEventListener('mousemove', (e) => {
+      if(!sectionVisible) return;
+      const [nx, ny] = normalizedFromPoint(e.clientX, e.clientY);
+      applyTilt(nx, ny);
+    }, { passive: true });
+    stage.addEventListener('mouseleave', () => applyTilt(0, 0));
+
+    // mobile touch drag
+    stage.addEventListener('touchmove', (e) => {
+      if(!sectionVisible || !e.touches[0]) return;
+      const [nx, ny] = normalizedFromPoint(e.touches[0].clientX, e.touches[0].clientY);
+      applyTilt(nx, ny);
+    }, { passive: true });
+    stage.addEventListener('touchend', () => applyTilt(0, 0));
+
+    // gyroscope tilt (iOS requires a permission prompt triggered by user interaction)
+    function enableGyro(){
+      window.addEventListener('deviceorientation', (e) => {
+        if(!sectionVisible || e.gamma === null || e.beta === null) return;
+        const nx = Math.max(-1, Math.min(1, e.gamma / 30));
+        const ny = Math.max(-1, Math.min(1, (e.beta - 45) / 30));
+        applyTilt(nx * 0.6, ny * 0.6); // extra subtle on gyro
+      });
+    }
+    if(window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission === 'function'){
+      const requestGyroOnce = () => {
+        DeviceOrientationEvent.requestPermission().then(state => {
+          if(state === 'granted') enableGyro();
+        }).catch(() => {});
+        stage.removeEventListener('touchstart', requestGyroOnce);
+      };
+      stage.addEventListener('touchstart', requestGyroOnce, { once: true, passive: true });
+    } else if(window.DeviceOrientationEvent){
+      enableGyro();
+    }
+
+    // breathing animation — near-invisible scale pulse
+    if(gsapAvailable && !reduceMotion){
+      gsap.to(frame.querySelector('img'), {
+        scale: 1.01, duration: 6, ease: 'sine.inOut', yoyo: true, repeat: -1
+      });
+      particles.forEach(pt => {
+        gsap.to(pt.el, {
+          y: `+=${8 + Math.random() * 10}`,
+          duration: pt.driftDur, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: pt.delay
+        });
+      });
+    }
+
+    // scroll-triggered entrance
+    function playEntrance(){
+      if(!gsapAvailable){
+        section.querySelectorAll('.word').forEach(w => w.style.opacity = 1);
+        paragraphs.forEach(p => p.style.opacity = 1);
+        cta.style.opacity = 1;
+        particleEls.forEach(el => el.style.opacity = 1);
+        return;
+      }
+      gsap.set(headline.querySelectorAll('.word'), { opacity: 0, y: 24 });
+      gsap.set(paragraphs, { opacity: 0, y: 16 });
+      gsap.set(cta, { opacity: 0, y: 10 });
+      gsap.set(particleEls, { opacity: 0 });
+      gsap.set(frame, { opacity: 0, y: 40, rotationZ: -3 });
+      gsap.set(glow, { opacity: 0, scale: 0.7 });
+      gsap.set(caption, { opacity: 0 });
+
+      const tl = gsap.timeline({
+        scrollTrigger: { trigger: section, start: 'top 70%', once: true }
+      });
+      tl.to(glow, { opacity: 1, scale: 1, duration: 1.1, ease: 'power2.out' })
+        .to(frame, { opacity: 1, y: 0, rotationZ: 0, duration: 1.1, ease: 'power3.out' }, '-=0.8')
+        .to(particleEls, { opacity: 1, stagger: 0.06, duration: 0.8 }, '-=0.7')
+        .to(caption, { opacity: 0.75, duration: 0.6 }, '-=0.4')
+        .to(headline.querySelectorAll('.word'), { opacity: 1, y: 0, stagger: 0.045, duration: 0.6, ease: 'power2.out' }, '-=0.5')
+        .to(paragraphs, { opacity: 1, y: 0, stagger: 0.15, duration: 0.7, ease: 'power2.out' }, '-=0.2')
+        .to(cta, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.1');
+    }
+
+    if(gsapAvailable && typeof ScrollTrigger !== 'undefined'){
+      gsap.registerPlugin(ScrollTrigger);
+      playEntrance();
+    } else {
+      const fallbackObserver = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if(e.isIntersecting){ playEntrance(); fallbackObserver.disconnect(); }
+        });
+      }, { threshold: 0.2 });
+      fallbackObserver.observe(section);
+    }
+  })();
 </script>
 </body>
 </html>
