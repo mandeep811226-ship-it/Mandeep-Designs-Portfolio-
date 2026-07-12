@@ -123,13 +123,14 @@
 
   /* ---------- HERO ---------- */
   .hero{
-    position:relative; min-height:100vh; height:auto;
+    position:relative; height:auto; min-height:clamp(620px, 92vh, 980px);
     background:var(--ink); color:var(--bone);
     display:flex; align-items:center; overflow:hidden;
     padding:168px 0 64px;
     box-sizing:border-box;
   }
   @media (max-height:760px){ .hero{ padding-top:150px; } }
+  @media (min-width:1400px){ .hero{ min-height:clamp(620px, 88vh, 880px); } }
   .hero-video{
     position:absolute; inset:0; width:100%; height:100%;
     object-fit:cover; z-index:0;
