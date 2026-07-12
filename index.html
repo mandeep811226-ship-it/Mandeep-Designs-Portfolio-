@@ -314,19 +314,14 @@
     box-shadow:0 0 6px 1px rgba(224,196,138,0.5);
   }
   .designer-portrait-frame{
-    position:relative; z-index:1; aspect-ratio:853/1280; border-radius:3px; overflow:hidden;
+    position:relative; z-index:1; aspect-ratio:4/5; border-radius:3px; overflow:hidden;
     transform-style:preserve-3d; will-change:transform;
     box-shadow:0 50px 100px -30px rgba(0,0,0,0.6), 0 0 0 1px rgba(185,151,91,0.25);
   }
-  /* real depth layers, segmented from the source portrait: background / shoulders / face */
-  .designer-layer{ position:absolute; inset:-8%; will-change:transform; }
-  .designer-layer img{ width:100%; height:100%; object-fit:cover; display:block; }
-  .designer-layer-bg{ z-index:0; }
-  .designer-layer-bg img{ transform:scale(1.18); filter:blur(7px) brightness(0.55) saturate(1.12); }
-  .designer-layer-shoulders{ z-index:1; filter:drop-shadow(0 22px 30px rgba(0,0,0,0.5)); }
-  .designer-layer-shoulders img{ filter:saturate(1.05) contrast(1.02); }
-  .designer-layer-head{ z-index:2; filter:drop-shadow(0 16px 24px rgba(0,0,0,0.55)); }
-  .designer-layer-head img{ filter:saturate(1.05) contrast(1.03); }
+  .designer-portrait-frame img{
+    width:100%; height:100%; object-fit:cover; object-position:top center;
+    transform:scale(1.04); filter:saturate(1.05) contrast(1.03);
+  }
   .designer-rim-light{
     position:absolute; inset:0; z-index:2; pointer-events:none;
     background:linear-gradient(120deg, transparent 40%, rgba(224,196,138,0.22) 50%, transparent 60%);
@@ -616,15 +611,7 @@
         <div class="designer-glow" id="designerGlow"></div>
         <div class="designer-particles" id="designerParticles"></div>
         <div class="designer-portrait-frame" id="portraitFrame">
-          <div class="designer-layer designer-layer-bg" id="layerBg">
-            <img src="assets/mandeep-bg.jpg" alt="" role="presentation">
-          </div>
-          <div class="designer-layer designer-layer-shoulders" id="layerShoulders">
-            <img src="assets/mandeep-shoulders.png" alt="">
-          </div>
-          <div class="designer-layer designer-layer-head" id="layerHead">
-            <img src="assets/mandeep-head.png" alt="Portrait of Mandeep Singh, founder of Mandeep Designs">
-          </div>
+          <img src="assets/mandeep-portrait.jpg" alt="Portrait of Mandeep Singh, founder of Mandeep Designs" id="portraitImg">
           <div class="designer-rim-light"></div>
           <div class="designer-vignette-frame"></div>
         </div>
@@ -905,9 +892,6 @@
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const stage = document.getElementById('portraitStage');
     const frame = document.getElementById('portraitFrame');
-    const layerBg = document.getElementById('layerBg');
-    const layerShoulders = document.getElementById('layerShoulders');
-    const layerHead = document.getElementById('layerHead');
     const glow = document.getElementById('designerGlow');
     const rim = frame.querySelector('.designer-rim-light');
     const particlesWrap = document.getElementById('designerParticles');
@@ -944,37 +928,27 @@
     }, { threshold: 0.1 });
     visibilityObserver.observe(section);
 
-    // eased interpolation for cursor-driven movement — each real layer gets its own depth
-    let qBgX, qBgY, qShX, qShY, qHeadX, qHeadY, qHeadRotY, qHeadRotX, qGlowX, qGlowY, qRimX;
+    // eased interpolation for cursor-driven movement
+    let quickRotY, quickRotX, quickGlowX, quickGlowY, quickRimX;
     if(gsapAvailable){
-      qBgX    = gsap.quickTo(layerBg, 'x', { duration: 1.3, ease: 'power3.out' });
-      qBgY    = gsap.quickTo(layerBg, 'y', { duration: 1.3, ease: 'power3.out' });
-      qShX    = gsap.quickTo(layerShoulders, 'x', { duration: 1.0, ease: 'power3.out' });
-      qShY    = gsap.quickTo(layerShoulders, 'y', { duration: 1.0, ease: 'power3.out' });
-      qHeadX  = gsap.quickTo(layerHead, 'x', { duration: 0.8, ease: 'power3.out' });
-      qHeadY  = gsap.quickTo(layerHead, 'y', { duration: 0.8, ease: 'power3.out' });
-      qHeadRotY = gsap.quickTo(layerHead, 'rotationY', { duration: 0.8, ease: 'power3.out' });
-      qHeadRotX = gsap.quickTo(layerHead, 'rotationX', { duration: 0.8, ease: 'power3.out' });
-      qGlowX  = gsap.quickTo(glow, 'xPercent', { duration: 1.2, ease: 'power3.out' });
-      qGlowY  = gsap.quickTo(glow, 'yPercent', { duration: 1.2, ease: 'power3.out' });
-      qRimX   = gsap.quickTo(rim, 'xPercent', { duration: 1, ease: 'power3.out' });
+      quickRotY = gsap.quickTo(frame, 'rotationY', { duration: 0.9, ease: 'power3.out' });
+      quickRotX = gsap.quickTo(frame, 'rotationX', { duration: 0.9, ease: 'power3.out' });
+      quickGlowX = gsap.quickTo(glow, 'xPercent', { duration: 1.2, ease: 'power3.out' });
+      quickGlowY = gsap.quickTo(glow, 'yPercent', { duration: 1.2, ease: 'power3.out' });
+      quickRimX = gsap.quickTo(rim, 'xPercent', { duration: 1, ease: 'power3.out' });
     }
 
-    const MAX_HEAD_TILT = 7; // degrees — head rotates, within the 6-8deg premium range
+    const MAX_TILT = 7; // degrees — stays within the 6-8deg premium range
     function applyTilt(nx, ny){
       if(reduceMotion) return;
       if(gsapAvailable){
-        qBgX(nx * 6);   qBgY(ny * 6);            // background: barely moves, furthest depth
-        qShX(nx * 11);  qShY(ny * 11);           // shoulders: slightly move, no rotation
-        qHeadX(nx * 16); qHeadY(ny * 16);         // head: moves most, plus its own rotation
-        qHeadRotY(nx * MAX_HEAD_TILT);
-        qHeadRotX(-ny * MAX_HEAD_TILT);
-        qGlowX(nx * 18); qGlowY(ny * 18);
-        qRimX(nx * 40);
+        quickRotY(nx * MAX_TILT);
+        quickRotX(-ny * MAX_TILT);
+        quickGlowX(nx * 18);
+        quickGlowY(ny * 18);
+        quickRimX(nx * 40);
       } else {
-        layerHead.style.transform = `translate(${nx*16}px, ${ny*16}px) rotateY(${nx*MAX_HEAD_TILT}deg) rotateX(${-ny*MAX_HEAD_TILT}deg)`;
-        layerShoulders.style.transform = `translate(${nx*11}px, ${ny*11}px)`;
-        layerBg.style.transform = `translate(${nx*6}px, ${ny*6}px)`;
+        frame.style.transform = `rotateY(${nx * MAX_TILT}deg) rotateX(${-ny * MAX_TILT}deg)`;
       }
       particles.forEach(pt => {
         const shift = pt.depth * 14;
@@ -1030,7 +1004,7 @@
 
     // breathing animation — near-invisible scale pulse
     if(gsapAvailable && !reduceMotion){
-      gsap.to([layerHead, layerShoulders], {
+      gsap.to(frame.querySelector('img'), {
         scale: 1.01, duration: 6, ease: 'sine.inOut', yoyo: true, repeat: -1
       });
       particles.forEach(pt => {
