@@ -142,6 +142,8 @@
   html.light-mode #pageWrap{ filter:invert(1) hue-rotate(180deg); background:#fff; }
   html.light-mode #pageWrap img,
   html.light-mode #pageWrap video{ filter:invert(1) hue-rotate(180deg); }
+  html.light-mode #pageWrap .hero{ filter:invert(1) hue-rotate(180deg); }
+  html.light-mode #pageWrap .hero-bg-img{ filter:none; }
 
   /* ---------- HERO ---------- */
   .hero{
@@ -153,10 +155,10 @@
   }
   @media (max-height:760px){ .hero{ padding-bottom:48px; } }
 
-  .hero-media{ position:absolute; inset:0; z-index:0; }
+  .hero-media{ position:absolute; inset:0; z-index:0; background:var(--ink); }
   .hero-bg-img{
     position:absolute; inset:0; width:100%; height:100%;
-    object-fit:cover; object-position:center center;
+    object-fit:cover; object-position:center 30%;
   }
   .hero-overlay{
     position:absolute; inset:0; z-index:1;
@@ -218,7 +220,7 @@
   /* ---- Tablet (768–1199px): left-aligned, slightly zoomed-out, focal point centered ---- */
   @media (min-width:768px) and (max-width:1199px){
     .hero{ align-items:center; padding-top:180px; }
-    .hero-bg-img{ object-position:center 38%; transform:scale(1.02); }
+    .hero-bg-img{ object-fit:contain; object-position:center center; }
     .hero-overlay{
       background:linear-gradient(90deg, rgba(8,8,10,.78) 0%, rgba(8,8,10,.5) 40%, rgba(8,8,10,.15) 70%, transparent 100%);
     }
@@ -238,7 +240,7 @@
     .hero-overlay{
       background:linear-gradient(90deg, rgba(8,8,10,.82) 0%, rgba(8,8,10,.55) 35%, rgba(8,8,10,.18) 65%, transparent 100%);
     }
-    .hero-bg-img{ object-position:center 42%; }
+    .hero-bg-img{ object-fit:contain; object-position:center center; }
     .hero-content{ grid-column:1; position:relative; z-index:2; max-width:560px; margin:0; text-align:left; padding-left:0; }
     .hero .eyebrow{ justify-content:flex-start; }
     .hero h1{ font-size:clamp(64px, 6vw, 92px); }
@@ -591,15 +593,19 @@
 <!-- ================= HERO ================= -->
 <section class="hero" id="home">
   <div class="hero-media">
-    <img
-      src="assets/hero-desk.png"
-      alt="Mandeep, founder of Mandeep Designs, working late at a minimalist dark desk with dual monitors displaying cinematic website designs with amber UI accents"
-      class="hero-bg-img"
-      fetchpriority="high"
-      decoding="async">
+    <picture>
+      <source media="(max-width:767px)" srcset="assets/hero-desk-mobile.png">
+      <img
+        src="assets/hero-desk.png"
+        alt="Mandeep, founder of Mandeep Designs, working late at a minimalist dark desk with dual monitors displaying cinematic website designs with amber UI accents"
+        class="hero-bg-img"
+        fetchpriority="high"
+        decoding="async">
+    </picture>
     <div class="hero-overlay"></div>
     <div class="hero-grain"></div>
   </div>
+
   <div class="container hero-content">
     <div class="eyebrow">
       <svg class="flourish" viewBox="0 0 34 8"><path d="M0 4 C 10 -2, 24 10, 34 4"/></svg>
