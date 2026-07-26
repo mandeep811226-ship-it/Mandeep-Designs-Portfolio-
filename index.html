@@ -231,7 +231,7 @@
     .hero-overlay{
       background:linear-gradient(90deg, rgba(8,8,10,.82) 0%, rgba(8,8,10,.55) 35%, rgba(8,8,10,.18) 65%, transparent 100%);
     }
-    .hero-content{ grid-column:1; position:relative; z-index:2; max-width:520px; margin:0; text-align:left; padding-left:0; }
+    .hero-content{ grid-column:1; position:relative; z-index:2; max-width:520px; margin:0; text-align:left; padding-left:48px; }
     .hero .eyebrow{ justify-content:flex-start; }
     .hero h1{ font-size:clamp(44px, 6vw, 70px); }
     .hero p.sub{ margin-left:0; margin-right:0; max-width:480px; font-size:16px; }
@@ -242,14 +242,15 @@
 
   /* ---- Desktop (≥1200px): roomier type + spacing on the same left-pinned layout ---- */
   @media (min-width:1200px){
-    .hero-content{ max-width:560px; }
+    .hero{ padding-bottom:80px; }
+    .hero-content{ max-width:560px; padding-left:72px; }
     .hero h1{ font-size:clamp(64px, 6vw, 92px); }
     .hero p.sub{ max-width:520px; font-size:17px; line-height:1.75; }
     .cta-row{ margin-top:44px; }
     .hero-stats{ margin-top:64px; }
     .hero-stats .stat-row{ gap:64px; }
   }
-  @media (min-width:1600px){ .hero-content{ max-width:600px; } }
+  @media (min-width:1600px){ .hero-content{ max-width:600px; padding-left:96px; } }
 
   /* ---------- SECTION GENERIC ---------- */
   section{ padding:140px 0; position:relative; }
@@ -273,10 +274,11 @@
     .project:nth-child(even){ direction:ltr; }
   }
   .project-media{
-    position:relative; overflow:hidden; border-radius:2px;
-    aspect-ratio:16/11.3; background:var(--ink);
+    position:relative; overflow:hidden; border-radius:22px;
+    aspect-ratio:16/11.3; background:var(--ink); cursor:pointer;
     box-shadow:0 40px 80px -30px rgba(12,11,9,0.35);
   }
+  .project-media:focus-visible{ outline:2px solid var(--brass); outline-offset:4px; }
   .project-media img{
     width:100%; height:100%; object-fit:cover; object-position:top;
     transform:scale(1.02); transition:transform 1.2s var(--ease);
@@ -287,15 +289,19 @@
     background:linear-gradient(to top, rgba(12,11,9,0.28), transparent 40%);
   }
   .project-tag{
-    position:absolute; top:18px; left:18px; z-index:2;
-    background:rgba(12,11,9,0.55); backdrop-filter:blur(6px);
+    position:absolute; bottom:16px; right:16px; z-index:2;
+    background:rgba(12,11,9,0.7); backdrop-filter:blur(6px);
     color:var(--brass-light); font-size:11px; letter-spacing:0.14em; text-transform:uppercase;
-    padding:8px 14px; border:1px solid rgba(243,238,225,0.2); border-radius:2px;
+    padding:8px 14px; border:1px solid rgba(224,196,138,0.5); border-radius:20px;
+    box-shadow:0 0 0 1px rgba(185,151,91,0.25), 0 4px 18px -2px rgba(185,151,91,0.55);
   }
   .project-index{ font-family:'Fraunces', serif; font-size:13px; color:var(--brass); letter-spacing:0.1em; margin-bottom:18px; display:block; }
   .project-body h3{ font-size:clamp(26px,3vw,38px); margin-bottom:6px; }
   .project-body .industry{ font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:var(--brass); font-weight:600; margin-bottom:22px; display:block; }
-  .project-body p.desc{ font-size:15.5px; line-height:1.85; color:#4c4739; font-weight:300; max-width:460px; margin-bottom:32px; }
+  .project-body p.desc{
+    font-size:15.5px; line-height:1.85; color:#4c4739; font-weight:300; max-width:460px; margin-bottom:32px;
+    display:-webkit-box; -webkit-line-clamp:5; -webkit-box-orient:vertical; overflow:hidden;
+  }
   .project-link{
     display:inline-flex; align-items:center; gap:10px; font-size:12.5px; letter-spacing:0.1em;
     text-transform:uppercase; font-weight:600; color:var(--ink); padding-bottom:6px;
@@ -630,7 +636,7 @@
     </div>
 
     <div class="project reveal">
-      <div class="project-media">
+      <div class="project-media" data-visit-url="https://ravixlabs.com" data-visit-name="Ravix Labs" role="link" tabindex="0" aria-label="Visit Ravix Labs website">
         <span class="project-tag">Live Project</span>
         <img loading="lazy" decoding="async" src="assets/ravix-preview.jpg" alt="Ravix Browser website preview">
       </div>
@@ -638,49 +644,35 @@
         <span class="project-index">01 — Product &amp; Technology</span>
         <span class="industry">Browser Technology</span>
         <h3>Ravix Labs</h3>
-        <p class="desc">A performance-obsessed Android browser needed a home that felt as fast and futuristic as the product itself. We built the Ravix Labs website around bold gradient motion, dark-mode precision, and a visual language engineered for power users — turning a technical product into a brand people trust before they've even opened the app.</p>
+        <p class="desc">A performance-obsessed Android browser needed a home that felt just as fast. We built the Ravix Labs site around bold gradient motion and dark-mode precision — turning a technical product into a brand power users trust on sight.</p>
         <a href="https://ravixlabs.com" target="_blank" rel="noopener" class="project-link">Visit Live Website <span>→</span></a>
       </div>
     </div>
 
     <div class="project reveal">
-      <div class="project-media">
-        <span class="project-tag">Live Project</span>
-        <img loading="lazy" decoding="async" src="assets/saffron-preview.jpg" alt="Saffron Ember website preview">
-      </div>
-      <div class="project-body">
-        <span class="project-index">02 — Hospitality &amp; Events</span>
-        <span class="industry">Luxury Restaurant &amp; Catering</span>
-        <h3>Saffron Ember</h3>
-        <p class="desc">Saffron Ember needed a digital presence worthy of royal weddings and private galas. We designed a cinematic, editorial experience — rich typography, warm gold accents, and unhurried pacing — so every scroll feels like stepping into the room. The result is a website that sells the feeling before the first course arrives.</p>
-        <a href="https://mandeep811226-ship-it.github.io/saffron-ember/" target="_blank" rel="noopener" class="project-link">Visit Live Website <span>→</span></a>
-      </div>
-    </div>
-
-    <div class="project reveal">
-      <div class="project-media">
+      <div class="project-media" data-visit-url="https://manishatusharsalonandacademy.vercel.app" data-visit-name="Manisha Tushar Salon &amp; Academy" role="link" tabindex="0" aria-label="Visit Manisha Tushar Salon &amp; Academy website">
         <span class="project-tag">Live Project</span>
         <img loading="lazy" decoding="async" src="assets/manisha-preview.png" alt="Manisha Tushar Salon & Academy website preview">
       </div>
       <div class="project-body">
-        <span class="project-index">03 — Beauty &amp; Wellness</span>
+        <span class="project-index">02 — Beauty &amp; Wellness</span>
         <span class="industry">Salon &amp; Training Academy</span>
         <h3>Manisha Tushar Salon &amp; Academy</h3>
-        <p class="desc">Kota's leading bridal and hair studio needed a site that felt as elevated as its clientele. We built a moody, editorial homepage around real studio photography, an animated horizontal gallery, and a warm maroon-and-gold palette — giving the salon and its academy one polished address to send both clients and future students to.</p>
+        <p class="desc">Kota's leading bridal and hair studio needed a site as elevated as its clientele. We built a moody, editorial homepage with real studio photography and a warm maroon-and-gold palette — one polished address for clients and future students alike.</p>
         <a href="https://manishatusharsalonandacademy.vercel.app" target="_blank" rel="noopener" class="project-link">Visit Live Website <span>→</span></a>
       </div>
     </div>
 
     <div class="project reveal">
-      <div class="project-media">
+      <div class="project-media" data-visit-url="https://chand263100-afk.github.io/chandan-portfolio/" data-visit-name="Chand Verma — Video Editor" role="link" tabindex="0" aria-label="Visit Chand Verma — Video Editor website">
         <span class="project-tag">Live Project</span>
         <img loading="lazy" decoding="async" src="assets/chand-preview.png" alt="Chand Verma video editor portfolio website preview">
       </div>
       <div class="project-body">
-        <span class="project-index">04 — Personal Brand &amp; Portfolio</span>
+        <span class="project-index">03 — Personal Brand &amp; Portfolio</span>
         <span class="industry">Creative Freelancer</span>
         <h3>Chand Verma — Video Editor</h3>
-        <p class="desc">A cinematic video editor needed a portfolio that sold his eye before a single reel loaded. We designed a bold, high-contrast layout with punchy type and a built-in light/dark switch, giving Chand a personal brand strong enough to book clients directly off his work page.</p>
+        <p class="desc">A cinematic video editor needed a portfolio that sold his eye before a single reel loaded. We built a bold, high-contrast layout with punchy type and a light/dark switch — a personal brand strong enough to book clients straight off his work page.</p>
         <a href="https://chand263100-afk.github.io/chandan-portfolio/" target="_blank" rel="noopener" class="project-link">Visit Live Website <span>→</span></a>
       </div>
     </div>
@@ -873,6 +865,21 @@
   const header = document.getElementById('siteHeader');
   window.addEventListener('scroll', () => {
     header.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Project media click: confirm before leaving the site to visit the live project
+  document.querySelectorAll('.project-media[data-visit-url]').forEach(media => {
+    const goToSite = () => {
+      const url = media.getAttribute('data-visit-url');
+      const name = media.getAttribute('data-visit-name') || 'this';
+      if (window.confirm(`Do you want to visit the ${name} website?`)) {
+        window.open(url, '_blank', 'noopener');
+      }
+    };
+    media.addEventListener('click', goToSite);
+    media.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goToSite(); }
+    });
   });
 
   // Build the "why choose" vertical column slider
