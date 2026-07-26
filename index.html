@@ -113,6 +113,21 @@
   .nav-cta::after{ display:none; }
   .burger{ display:none; }
 
+  .nav-right{ display:flex; align-items:center; gap:26px; }
+
+  .theme-toggle{
+    display:flex; align-items:center; justify-content:center;
+    width:38px; height:38px; border-radius:50%;
+    border:1px solid var(--line-dark); background:rgba(243,238,225,0.06);
+    color:var(--bone); cursor:pointer; flex-shrink:0;
+    transition:background .4s var(--ease), border-color .4s var(--ease), transform .4s var(--ease);
+  }
+  .theme-toggle:hover{ border-color:var(--brass); transform:rotate(-12deg); }
+  .theme-toggle svg{ width:17px; height:17px; }
+  .theme-toggle .icon-sun{ display:none; }
+  html.light-mode .theme-toggle .icon-moon{ display:none; }
+  html.light-mode .theme-toggle .icon-sun{ display:block; }
+
   @media (max-width:900px){
     nav.links{ display:none; }
     .burger{
@@ -120,6 +135,13 @@
     }
     .burger span{ width:24px; height:1px; background:var(--bone); }
   }
+
+  /* ---------- LIGHT / DARK MODE TOGGLE ---------- */
+  html{ background:var(--ink); }
+  #pageWrap{ transition:filter .5s var(--ease); }
+  html.light-mode #pageWrap{ filter:invert(1) hue-rotate(180deg); background:#fff; }
+  html.light-mode #pageWrap img,
+  html.light-mode #pageWrap video{ filter:invert(1) hue-rotate(180deg); }
 
   /* ---------- HERO ---------- */
   .hero{
@@ -518,16 +540,24 @@
 <header id="siteHeader">
   <div class="container">
     <a href="#home" class="logo">Mandeep <b>Designs</b></a>
-    <nav class="links">
-      <a href="#home">Home</a>
-      <a href="#projects">Projects</a>
-      <a href="#services">Services</a>
-      <a href="#process">Process</a>
-      <a href="#contact" class="nav-cta magnetic">Start a Project</a>
-    </nav>
-    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <div class="nav-right">
+      <nav class="links">
+        <a href="#home">Home</a>
+        <a href="#projects">Projects</a>
+        <a href="#services">Services</a>
+        <a href="#process">Process</a>
+        <a href="#contact" class="nav-cta magnetic">Start a Project</a>
+      </nav>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
   </div>
 </header>
+
+<div id="pageWrap">
 
 <!-- ================= HERO ================= -->
 <section class="hero" id="home">
@@ -547,13 +577,6 @@
     <div class="cta-row reveal" style="transition-delay:.3s">
       <a href="#projects" class="btn btn-primary magnetic">View Projects</a>
       <a href="#contact" class="btn btn-outline magnetic">Start a Project</a>
-    </div>
-    <div class="hero-stats reveal" style="transition-delay:.4s">
-      <div class="stat-row">
-        <div class="stat"><b>2</b><span>Signature Builds</span></div>
-        <div class="stat"><b>100%</b><span>Custom Design</span></div>
-        <div class="stat"><b>0</b><span>Templates Used</span></div>
-      </div>
     </div>
   </div>
   <div class="scroll-cue"><span>Scroll</span><div class="line"></div></div>
@@ -593,6 +616,34 @@
         <h3>Saffron Ember</h3>
         <p class="desc">Saffron Ember needed a digital presence worthy of royal weddings and private galas. We designed a cinematic, editorial experience — rich typography, warm gold accents, and unhurried pacing — so every scroll feels like stepping into the room. The result is a website that sells the feeling before the first course arrives.</p>
         <a href="https://mandeep811226-ship-it.github.io/saffron-ember/" target="_blank" rel="noopener" class="project-link">Visit Live Website <span>→</span></a>
+      </div>
+    </div>
+
+    <div class="project reveal">
+      <div class="project-media">
+        <span class="project-tag">Live Project</span>
+        <img src="assets/manisha-preview.png" alt="Manisha Tushar Salon & Academy website preview">
+      </div>
+      <div class="project-body">
+        <span class="project-index">03 — Beauty &amp; Wellness</span>
+        <span class="industry">Salon &amp; Training Academy</span>
+        <h3>Manisha Tushar Salon &amp; Academy</h3>
+        <p class="desc">Kota's leading bridal and hair studio needed a site that felt as elevated as its clientele. We built a moody, editorial homepage around real studio photography, an animated horizontal gallery, and a warm maroon-and-gold palette — giving the salon and its academy one polished address to send both clients and future students to.</p>
+        <a href="https://manishatusharsalonandacademy.vercel.app" target="_blank" rel="noopener" class="project-link">Visit Live Website <span>→</span></a>
+      </div>
+    </div>
+
+    <div class="project reveal">
+      <div class="project-media">
+        <span class="project-tag">Live Project</span>
+        <img src="assets/chand-preview.png" alt="Chand Verma video editor portfolio website preview">
+      </div>
+      <div class="project-body">
+        <span class="project-index">04 — Personal Brand &amp; Portfolio</span>
+        <span class="industry">Creative Freelancer</span>
+        <h3>Chand Verma — Video Editor</h3>
+        <p class="desc">A cinematic video editor needed a portfolio that sold his eye before a single reel loaded. We designed a bold, high-contrast layout with punchy type and a built-in light/dark switch, giving Chand a personal brand strong enough to book clients directly off his work page.</p>
+        <a href="https://chand263100-afk.github.io/chandan-portfolio/" target="_blank" rel="noopener" class="project-link">Visit Live Website <span>→</span></a>
       </div>
     </div>
   </div>
@@ -765,6 +816,9 @@
   </div>
 </footer>
 
+</div>
+<!-- /#pageWrap -->
+
 <a href="tel:+919660960430" class="call-fab magnetic" aria-label="Call Mandeep Designs">
   <span class="ring"></span>
   <span class="ring ring2"></span>
@@ -874,6 +928,18 @@
     });
     btn.addEventListener('mouseleave', () => { btn.style.transform = 'translate(0,0)'; });
   });
+
+  // Light / dark mode toggle
+  (function(){
+    const root = document.documentElement;
+    const btn = document.getElementById('themeToggle');
+    const saved = localStorage.getItem('md-theme');
+    if(saved === 'light') root.classList.add('light-mode');
+    btn.addEventListener('click', () => {
+      root.classList.toggle('light-mode');
+      localStorage.setItem('md-theme', root.classList.contains('light-mode') ? 'light' : 'dark');
+    });
+  })();
 
   // Mobile menu toggle (simple)
   const burger = document.getElementById('burger');
